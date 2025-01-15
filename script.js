@@ -17,22 +17,37 @@ function convertInput(str) {
         .join('')
 }
 
-function countCharacters(str) {
-    const charCount = {}
+function getFrequencies(str) {
+    const freqMap = {}
     for (const char of str) {
-        charCount[char] = (charCount[char] || 0) + 1;
+        freqMap[char] = (freqMap[char] || 0) + 1;
     }
-    return charCount
+    return freqMap
 }
 
-// function distance(a, b) {
 
-// }
+function findBestMatch(freqMap) {
 
-function findBestMatch(charCount) {
-    Object.entries(counts).forEach(([key, value]) => {
-        console.log(value);
+    let bestMatchKey = ""
+    let minimalDistance = Infinity
+
+    Object.entries(counts).forEach(([cityKey, freqMap2]) => {
+
+        let distance = 0
+
+        Object.entries(freqMap).forEach(([character, frequency]) => {
+            let frequency2 = (freqMap2[character] || 0)
+            distance += Math.abs(frequency - frequency2)
+        });
+
+        if (distance < minimalDistance) {
+            minimalDistance = distance
+            bestMatchKey = cityKey
+        }
+
     });
+
+    return bestMatchKey
 }
 
 function findStation() {
@@ -46,15 +61,13 @@ function findStation() {
         result = namemap[key];
     } else {
         // Anders berekenen we de key die er het dichtst bij zit
-        const charCount = countCharacters(key);
+        const freqMap = getFrequencies(key);
 
-        findBestMatch();
+        const bestMatchKey = findBestMatch(freqMap);
 
+        result = namemap[bestMatchKey]
 
-        console.log(charCount)
     }
-
-    console.log(result)
 
     document.getElementById('result').textContent = `Gevonden station: ${result}`;
 }
