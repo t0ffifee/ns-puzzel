@@ -39,12 +39,14 @@ function findBestMatch(freqMap) {
 
     Object.entries(counts).forEach(([cityKey, freqMap2]) => {
 
-        let distance = 0
+        let distance = 0;
 
-        // Niet de exacte afstand want sommige letters uit freqMap2 zullen missen, maar goed genoeg
-        Object.entries(freqMap).forEach(([character, frequency]) => {
-            let frequency2 = (freqMap2[character] || 0)
-            distance += Math.abs(frequency - frequency2)
+        const allChars = new Set([...Object.keys(freqMap), ...Object.keys(freqMap2)]);
+
+        allChars.forEach(char => {
+            const val1 = freqMap[char] || 0;
+            const val2 = freqMap2[char] || 0;
+            distance += Math.pow(val1 - val2, 2)
         });
 
         if (distance < minimalDistance) {
@@ -67,7 +69,7 @@ function findStation() {
         // Bij een exacte match gebruiken we de lookup-table
         result = namemap[key];
     } else {
-        // Anders berekenen we de key die er het dichtst bij zit
+        // Anders berekenen we de key die er het dichtst bij zit met behulp van de euclidische afstand
         const freqMap = getFrequencies(key);
 
         const bestMatchKey = findBestMatch(freqMap);
