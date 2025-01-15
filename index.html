@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<link rel="stylesheet" href="styles.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Station Finder</title>
+    <title>Stations Puzzel Oplosser</title>
 </head>
 
-<body>
-    <h1>Vind een station</h1>
-    <input type="text" id="stationInput" placeholder="Voer een stationsnaam in">
-    <button onclick="findStation()">Zoek station</button>
-    <p id="result"></p>
+<div>
 
-    <script src="script.js"></script>
-</body>
+    <body>
+        <h1>Los de Stationspuzzel op!</h1>
+        <p>Voer de gehusselde letters van een station in om de juiste naam te vinden. Als er letters missen vindt het de
+            beste match.</p>
+        <input type="text" id="stationInput" placeholder="Voer een stationsnaam in">
+        <button onclick="findStation()">Ontcijfer</button>
+        <p id="result"></p>
+
+        <script src="script.js"></script>
+    </body>
+</div>
 
 </html>

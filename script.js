@@ -1,6 +1,12 @@
 let namemap = {};
 let counts = {};
 
+document.getElementById('stationInput').addEventListener('keydown', function (event) {
+    if (event.key === "Enter") {
+        findStation();
+    }
+});
+
 // Laad de JSON-bestanden
 fetch('stationsmap.json')
     .then(response => response.json())
@@ -35,6 +41,7 @@ function findBestMatch(freqMap) {
 
         let distance = 0
 
+        // Niet de exacte afstand want sommige letters uit freqMap2 zullen missen, maar goed genoeg
         Object.entries(freqMap).forEach(([character, frequency]) => {
             let frequency2 = (freqMap2[character] || 0)
             distance += Math.abs(frequency - frequency2)
