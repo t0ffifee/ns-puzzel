@@ -46,7 +46,7 @@ function findBestMatch(freqMap) {
         allChars.forEach(char => {
             const val1 = freqMap[char] || 0;
             const val2 = freqMap2[char] || 0;
-            distance += Math.pow(val1 - val2, 2)
+            distance += Math.abs(val1 - val2)
         });
 
         if (distance < minimalDistance) {
@@ -69,7 +69,7 @@ function findStation() {
         // Bij een exacte match gebruiken we de lookup-table
         result = namemap[key];
     } else {
-        // Anders berekenen we de key die er het dichtst bij zit met behulp van de euclidische afstand
+        // Anders berekenen we de key die er het dichtst bij zit met behulp van de manhattan distance
         const freqMap = getFrequencies(key);
 
         const bestMatchKey = findBestMatch(freqMap);
